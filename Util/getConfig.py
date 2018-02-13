@@ -10,6 +10,7 @@ class Config():
         self.parser = ConfigParser()
         self.parser.read(self.file_path)
 
+    # 所有返回数据都是字符串，无需配置中无需手动添加引号
     @property
     def db_host(self):
         return self.parser['Database']['Host']
@@ -17,6 +18,10 @@ class Config():
     @property
     def db_port(self):
         return self.parser['Database']['Port']
+
+    @property
+    def db_type(self):
+        return self.parser['Database']['Type']
 
 
 if __name__ == '__main__':
