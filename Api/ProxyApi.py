@@ -3,7 +3,7 @@ import sys
 sys.path.append('../')
 
 from flask import Flask, jsonify
-from Util.getConfig import Config
+from Util.ConfigGetter import Config
 from Db.DbClient import DbClient
 
 c = Config()

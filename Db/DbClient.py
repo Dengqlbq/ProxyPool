@@ -1,6 +1,6 @@
 import sys
 import os
-from Util.getConfig import Config
+from Util.ConfigGetter import Config
 
 sys.path.append(os.path.dirname(__file__))
 
