@@ -10,7 +10,7 @@ class Config():
         self.parser = ConfigParser()
         self.parser.read(self.file_path)
 
-    # 所有返回数据都是字符串，无需配置中无需手动添加引号
+    # 所有返回数据都是字符串，配置中无需手动添加引号
     @property
     def db_host(self):
         return self.parser['Database']['Host']
@@ -23,8 +23,16 @@ class Config():
     def db_type(self):
         return self.parser['Database']['Type']
 
+    @property
+    def get_proxy_function(self):
+        for func in self.parser['GetProxyFunction']:
+            if self.parser['GetProxyFunction'][func] == '1':
+                yield func
+
 
 if __name__ == '__main__':
     c = Config()
     print(c.db_host)
     print(c.db_port)
+    for i in c.get_proxy_function:
+        print(i)

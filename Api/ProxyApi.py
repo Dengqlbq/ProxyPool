@@ -4,10 +4,10 @@ sys.path.append('../')
 
 from flask import Flask, jsonify
 from Util.ConfigGetter import Config
-from Db.DbClient import DbClient
+from Proxy.ProxyManager import ProxyManager
 
 c = Config()
-db = DbClient()
+
 
 app = Flask('ProxyPool')
 
@@ -16,20 +16,20 @@ app = Flask('ProxyPool')
 def hello():
     return 'Hello Coder'
 
-
+# 返回单个proxy带有双引号，待解决
 @app.route("/get")
 def get():
-    return jsonify(db.get())
+    return jsonify(ProxyManager().get())
 
 
 @app.route("/get_all")
 def get_all():
-    return jsonify(db.get_all())
+    return jsonify(ProxyManager().get_all())
 
 
 @app.route("/get_status")
 def get_status():
-    return jsonify(db.get_status())
+    return jsonify(ProxyManager().get_status())
 
 
 if __name__ == '__main__':
