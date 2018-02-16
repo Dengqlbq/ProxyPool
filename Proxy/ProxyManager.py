@@ -17,7 +17,7 @@ class ProxyManager():
         for func in self.config.get_proxy_function:
             fc = getattr(ProxyGetter, func)
             for proxy in fc():
-                self.db_client.put(proxy)
+                self.db_client.put(proxy, sname='raw')
 
     def get(self):
         return self.db_client.get()
