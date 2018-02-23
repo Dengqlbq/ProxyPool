@@ -5,9 +5,10 @@ from Util.ConfigGetter import Config
 sys.path.append(os.path.dirname(__file__))
 
 
-# 数据库工厂类
 class DbClient():
-
+    """
+    数据库工厂类
+    """
     def __init__(self):
         self.config = Config()
         self.init_db_client()
@@ -31,6 +32,12 @@ class DbClient():
 
     def get_status(self):
         return self.client.get_status()
+
+    def exists(self, proxy):
+        return self.client.exists(proxy)
+
+    def pop(self, *args, **kwargs):
+        return self.client.pop(*args, **kwargs)
 
 
 if __name__ == '__main__':

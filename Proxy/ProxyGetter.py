@@ -6,12 +6,19 @@ from Util.UtilFunction import get_html_tree
 
 
 class ProxyGetter():
+    """
+    代理获取类
+    """
 
     def __init__(self):
         pass
 
     @staticmethod
     def get_proxy_one():
+        """
+        获取无忧代理 http://www.data5u.com/
+        :return:
+        """
         url = 'http://www.data5u.com/free/index.shtml'
         html_tree = get_html_tree(url)
         proxies = html_tree.xpath('//ul[@class="l2"]')
