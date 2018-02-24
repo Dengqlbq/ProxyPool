@@ -29,6 +29,3 @@ class ProxyGetter():
             yield ip + ':' + port
 
 
-if __name__ == '__main__':
-    for i in ProxyGetter.get_proxy_one():
-        print(i)

@@ -73,6 +73,15 @@ class RedisClient():
         else:
             return None
 
+    def delete(self, proxy, sname):
+        """
+        从sname表中删除指定代理
+        :param proxy:
+        :param sname: 表名
+        :return:
+        """
+        self._conn.srem(sname, proxy)
+
 
 if __name__ == '__main__':
 

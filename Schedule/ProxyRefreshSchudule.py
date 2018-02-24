@@ -27,7 +27,6 @@ class ProxyRefreshSchedule(ProxyManager):
             else:
                 print('proxy not valid {}'.format(proxy))
             proxy = self.db_client.pop(self.raw_set)
-        print('end')
 
 
 def refresh_pool():
@@ -35,10 +34,10 @@ def refresh_pool():
     prs.start()
 
 
-def mul_thread_refresh(nums=10):
+def mul_thread_refresh(threads=10):
     """
     多线程刷新代理
-    :param nums:线程数量
+    :param threads:线程数量
     :return:
     """
     p = ProxyRefreshSchedule()
@@ -47,7 +46,7 @@ def mul_thread_refresh(nums=10):
 
     pl = []
     # 多线程检查
-    for i in range(nums):
+    for i in range(threads):
         p = Thread(target=refresh_pool, args=())
         pl.append(p)
     for p in pl:
@@ -64,7 +63,7 @@ def run():
     """
     mul_thread_refresh()
     schedule = BlockingScheduler()
-    schedule.add_job(mul_thread_refresh, 'interval', minutes=1)
+    schedule.add_job(mul_thread_refresh, 'interval', minutes=5)
     schedule.start()
 
 

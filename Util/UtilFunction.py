@@ -21,7 +21,7 @@ def proxy_format_valid(proxy):
     :param proxy:
     :return:
     """
-    ls = re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1, 5}', proxy)
+    ls = re.findall(r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,5}', proxy)
     return True if len(ls) == 1 and ls[0] == proxy else False
 
 
@@ -40,5 +40,4 @@ def proxy_useful_valid(proxy):
         return False
 
 
-if __name__ == '__main__':
-    proxy_useful_valid('183.52.197.65:1087')
+

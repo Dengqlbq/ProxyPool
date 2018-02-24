@@ -33,11 +33,14 @@ class DbClient():
     def get_status(self):
         return self.client.get_status()
 
-    def exists(self, proxy):
-        return self.client.exists(proxy)
+    def exists(self, *args, **kwargs):
+        return self.client.exists(*args, **kwargs)
 
     def pop(self, *args, **kwargs):
         return self.client.pop(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        return self.client.delete(*args, **kwargs)
 
 
 if __name__ == '__main__':

@@ -30,6 +30,10 @@ def get_status():
     return jsonify(ProxyManager().get_status())
 
 
+def run():
+    app.run()
+
+
 if __name__ == '__main__':
     app.run()
 
