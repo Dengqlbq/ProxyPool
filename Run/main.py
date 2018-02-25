@@ -12,9 +12,9 @@ def run():
     pl = []
     p1 = Process(target=ApiRun, name='ApiRun')
     pl.append(p1)
-    p2 = Process(target=ValidRun, name='ValidRun')
+    p2 = Process(target=RefreshRun, name='RefreshRun')
     pl.append(p2)
-    p3 = Process(target=RefreshRun, name='RefreshRun')
+    p3 = Process(target=ValidRun, name='ValidRun')
     pl.append(p3)
 
     for p in pl:

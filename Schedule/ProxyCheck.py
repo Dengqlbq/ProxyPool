@@ -12,23 +12,23 @@ class ProxyCheck(ProxyManager, Thread):
     """
     检查useful中的代理，不可用的删除
     """
-
     def __init__(self):
         ProxyManager.__init__(self)
         Thread.__init__(self)
 
     def run(self):
+        self.db_client.change_table(self.useful_proxy)
         while True:
-            proxy = self.db_client.pop('useful')
+            proxy = self.db_client.pop()
             while proxy:
                 if proxy_useful_valid(proxy):
                     print('useful valid pass {0}'.format(proxy))
-                    self.db_client.put(proxy, 'useful')
+                    self.db_client.put(proxy)
                 else:
                     print('useful valid faild {0}'.format(proxy))
-                    self.db_client.delete(proxy, 'useful')
-                proxy = self.db_client.pop('useful')
-            sleep(5 * 60)
+                    self.db_client.delete(proxy)
+                proxy = self.db_client.pop()
+            sleep(1 * 60)
 
 
 if __name__ == '__main__':

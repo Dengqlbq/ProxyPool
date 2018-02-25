@@ -12,21 +12,21 @@ class ProxyRefreshSchedule(ProxyManager):
     """
     定时刷新raw中代理，将可用代理放入useful
     """
-
     def __init__(self):
         ProxyManager.__init__(self)
-        self.raw_set = 'raw'
-        self.useful_set = 'useful'
 
     def start(self):
-        proxy = self.db_client.pop(self.raw_set)
+        self.db_client.change_table(self.raw_proxy)
+        proxy = self.db_client.pop()
         while proxy:
             if proxy_useful_valid(proxy):
-                self.db_client.put(proxy, self.useful_set)
+                self.db_client.change_table(self.useful_proxy)
+                self.db_client.put(proxy)
+                self.db_client.change_table(self.raw_proxy)
                 print('proxy valid {}'.format(proxy))
             else:
                 print('proxy not valid {}'.format(proxy))
-            proxy = self.db_client.pop(self.raw_set)
+            proxy = self.db_client.pop()
 
 
 def refresh_pool():
@@ -63,7 +63,7 @@ def run():
     """
     mul_thread_refresh()
     schedule = BlockingScheduler()
-    schedule.add_job(mul_thread_refresh, 'interval', minutes=5)
+    schedule.add_job(mul_thread_refresh, 'interval', minutes=1)
     schedule.start()
 
 

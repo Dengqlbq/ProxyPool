@@ -1,41 +1,36 @@
-import sys
-
-sys.path.append('../')
-
 import redis
 
 
 class RedisClient():
 
-    def __init__(self, host, port):
-        self._conn = redis.Redis(host, port)
+    def __init__(self, table, host, port):
+        self._table = table
+        self._conn = redis.Redis(host=host, port=port, db=0)
 
     def get(self):
         """
-        从数据库的useful中返回一个代理
+        从数据库的中返回一个代理
         :return:
         """
-        proxy = self._conn.srandmember('useful')
+        proxy = self._conn.srandmember(self._table)
         if proxy:
             return proxy.decode('ascii')
         return None
 
-    # 存放方式待改进
-    def put(self, proxy, sname='raw'):
+    def put(self, proxy):
         """
-        将proxy放入数据库的sname表中
+        将proxy放入数据库
         :param proxy:
-        :param sname:表名
         :return:
         """
-        return self._conn.sadd(sname, proxy)
+        return self._conn.sadd(self._table, proxy)
 
     def get_all(self):
         """
-        从数据库的useful中返回所有代理
+        从数据库中返回所有代理
         :return:
         """
-        proxies = self._conn.smembers('useful')
+        proxies = self._conn.smembers(self._table)
         if proxies:
             proxy_list = []
             for i in proxies:
@@ -45,42 +40,45 @@ class RedisClient():
 
     def get_status(self):
         """
-        返回数据库中代理的存储状态
+        返回数据库中指定表代理的存储状态
         :return:
         """
-        status = dict()
-        status['useful'] = self._conn.scard('useful')
-        status['raw'] = self._conn.scard('raw')
-        return status
+        return self._conn.scard(self._table)
 
     def exists(self, proxy):
         """
-        判断proxy是否存在数据库的useful中
+        判断proxy是否存在数据库中
         :param proxy:
         :return:
         """
-        return self._conn.sismember('useful', proxy)
+        return self._conn.sismember(self._table, proxy)
 
-    def pop(self, sname):
+    def pop(self):
         """
-        从数据库的sname表中弹出一个代理
-        :param sname:表名
+        从数据库中弹出一个proxy
         :return:
         """
-        proxy = self._conn.spop(sname)
+        proxy = self._conn.spop(self._table)
         if proxy:
             return proxy.decode('ascii')
         else:
             return None
 
-    def delete(self, proxy, sname):
+    def delete(self, proxy):
         """
-        从sname表中删除指定代理
+        从数据中删除一个代理
         :param proxy:
-        :param sname: 表名
         :return:
         """
-        self._conn.srem(sname, proxy)
+        self._conn.srem(self._table, proxy)
+
+    def change_table(self, table):
+        """
+        改变当前数据库表
+        :param table:
+        :return:
+        """
+        self._table = table
 
 
 if __name__ == '__main__':

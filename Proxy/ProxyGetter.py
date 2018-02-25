@@ -9,7 +9,6 @@ class ProxyGetter():
     """
     代理获取类
     """
-
     def __init__(self):
         pass
 

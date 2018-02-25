@@ -31,13 +31,15 @@ def proxy_useful_valid(proxy):
     :param proxy:
     :return:
     """
-    proxies = {"http": "http://{0}".format(proxy)}
-    try:
-        r = requests.get('http://httpbin.org/ip', proxies=proxies, timeout=10, verify=False)
-        if r.status_code == 200:
-            return True
-    except Exception as e:
-        return False
+    # proxies = {"http": "http://{0}".format(proxy)}
+    # try:
+    #     r = requests.get('http://httpbin.org/ip', proxies=proxies, timeout=10, verify=False)
+    #     if r.status_code == 200:
+    #         return True
+    # except Exception as e:
+    #     return False
+    import random
+    return True if random.randint(2, 15) % 2 == 1 else False
 
 
 
