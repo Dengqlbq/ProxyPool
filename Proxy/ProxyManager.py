@@ -66,5 +66,3 @@ class ProxyManager():
         status[self.useful_proxy] = self.db_client.get_status()
         return status
 
-
-

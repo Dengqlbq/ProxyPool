@@ -31,6 +31,14 @@ class Config(metaclass=Singleton):
         return self.parser['Database']['Name']
 
     @LazyProperty
+    def proxy_pool_host(self):
+        return self.parser['ProxyPool']['Host']
+
+    @LazyProperty
+    def proxy_pool_port(self):
+        return int(self.parser['ProxyPool']['Port'])
+
+    @LazyProperty
     def get_proxy_function(self):
         for func in self.parser['GetProxyFunction']:
             if self.parser['GetProxyFunction'][func] == '1':
@@ -39,6 +47,6 @@ class Config(metaclass=Singleton):
 
 if __name__ == '__main__':
     c = Config()
-    print(c.db_host)
-    print(c.db_host)
-    print(c.db_port)
+    for i in c.get_proxy_function:
+        print(i)
+

@@ -4,6 +4,7 @@ sys.path.append('../')
 
 from flask import Flask, jsonify
 from Proxy.ProxyManager import ProxyManager
+from Util.ConfigGetter import Config
 
 
 app = Flask('ProxyPool')
@@ -31,7 +32,7 @@ def get_status():
 
 
 def run():
-    app.run()
+    app.run(host=Config().proxy_pool_host, port=Config().proxy_pool_port)
 
 
 if __name__ == '__main__':

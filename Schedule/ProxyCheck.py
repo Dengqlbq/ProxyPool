@@ -28,7 +28,7 @@ class ProxyCheck(ProxyManager, Thread):
                     print('useful valid faild {0}'.format(proxy))
                     self.db_client.delete(proxy)
                 proxy = self.db_client.pop()
-            sleep(1 * 60)
+            sleep(5 * 60)
 
 
 if __name__ == '__main__':

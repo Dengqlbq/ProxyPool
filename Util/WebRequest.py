@@ -25,3 +25,8 @@ class WebRequest():
             headers.update(header)
         html = requests.get(url, headers=headers)
         return html
+
+
+if __name__ == '__main__':
+    w = WebRequest()
+    print(w.get('http://www.xdaili.cn/freeproxy').text)
