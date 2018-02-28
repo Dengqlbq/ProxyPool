@@ -4,6 +4,7 @@ sys.path.append('../')
 
 from Proxy.ProxyManager import ProxyManager
 from Util.UtilFunction import proxy_useful_valid
+from Util.LogHandler import LogHandler
 from threading import Thread
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -14,18 +15,19 @@ class ProxyRefreshSchedule(ProxyManager):
     """
     def __init__(self):
         ProxyManager.__init__(self)
+        self.log = LogHandler('ProxyRefresh')
 
     def start(self):
         self.db_client.change_table(self.raw_proxy)
         proxy = self.db_client.pop()
         while proxy:
             if proxy_useful_valid(proxy):
+                self.log.info('Proxy valid pass {}'.format(proxy))
                 self.db_client.change_table(self.useful_proxy)
                 self.db_client.put(proxy)
                 self.db_client.change_table(self.raw_proxy)
-                print('proxy valid {}'.format(proxy))
             else:
-                print('proxy not valid {}'.format(proxy))
+                self.log.info('Proxy valid failed {}'.format(proxy))
             proxy = self.db_client.pop()
 
 

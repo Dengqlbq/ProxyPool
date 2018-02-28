@@ -6,6 +6,7 @@ from Proxy.ProxyGetter import ProxyGetter
 from Db.DbClient import DbClient
 from Util.ConfigGetter import Config
 from Util.UtilFunction import proxy_format_valid
+from Util.LogHandler import LogHandler
 
 
 class ProxyManager():
@@ -17,6 +18,7 @@ class ProxyManager():
         self.config = Config()
         self.raw_proxy = 'raw'
         self.useful_proxy = 'useful'
+        self.log = LogHandler('ProxyManager')
 
     def refresh(self):
         """
@@ -27,7 +29,7 @@ class ProxyManager():
         for func in self.config.get_proxy_function:
             fc = getattr(ProxyGetter, func)
             for proxy in fc():
-                print('fetch proxy {0}'.format(proxy))
+                self.log.info('Fetch proxy {0}'.format(proxy))
                 proxies.add(proxy)
 
         for proxy in proxies:

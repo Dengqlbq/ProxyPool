@@ -8,7 +8,9 @@ class Config(metaclass=Singleton):
     配置获取类，负责项目中所有配置信息
     """
     def __init__(self):
-        self.current_path = os.path.split(os.path.abspath(__file__))[0]
+        # realpath链接到真实地址，abspath可能连接到符号链接地址
+        # https://stackoverflow.com/questions/37863476/why-use-both-os-path-abspath-and-os-path-realpath
+        self.current_path = os.path.split(os.path.realpath(__file__))[0]
         self.file_path = os.path.join(os.path.split(self.current_path)[0], 'Config.ini')
         self.parser = ConfigParser()
         self.parser.read(self.file_path)

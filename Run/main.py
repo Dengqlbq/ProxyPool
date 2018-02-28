@@ -5,7 +5,7 @@ sys.path.append('../')
 from multiprocessing import Process
 from Api.ProxyApi import run as ApiRun
 from Schedule.ProxyValidSchedule import run as ValidRun
-from Schedule.ProxyRefreshSchudule import run as RefreshRun
+from Schedule.ProxyRefreshSchedule import run as RefreshRun
 
 
 def run():
