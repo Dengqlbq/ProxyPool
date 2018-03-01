@@ -19,8 +19,9 @@ class ProxyCheck(ProxyManager, Thread):
         self.log = LogHandler('ProxyCheck')
 
     def run(self):
-        self.db_client.change_table(self.useful_proxy)
+        self.log.info('Proxy useful check start')
         while True:
+            self.db_client.change_table(self.useful_proxy)
             proxy = self.db_client.pop()
             while proxy:
                 if proxy_useful_valid(proxy):
@@ -30,6 +31,7 @@ class ProxyCheck(ProxyManager, Thread):
                     self.log.info('Proxy useful valid failed {}'.format(proxy))
                     self.db_client.delete(proxy)
                 proxy = self.db_client.pop()
+            self.log.info('Proxy useful check pausing')
             sleep(5 * 60)
 
 

@@ -25,8 +25,10 @@ class ProxyManager():
         获取新代理放入raw中
         :return:
         """
+        self.log.info('Fetch start')
         proxies = set()
-        for func in self.config.get_proxy_function:
+        for func in self.config.get_proxy_function():
+            print(func)
             fc = getattr(ProxyGetter, func)
             for proxy in fc():
                 self.log.info('Fetch proxy {0}'.format(proxy))
@@ -39,6 +41,7 @@ class ProxyManager():
                     continue
                 self.db_client.change_table(self.raw_proxy)
                 self.db_client.put(proxy)
+        self.log.info('Fetch end')
 
     def get(self):
         """

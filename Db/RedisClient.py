@@ -79,11 +79,3 @@ class RedisClient():
         :return:
         """
         self._table = table
-
-
-if __name__ == '__main__':
-
-    r = redis.Redis('zzzzz', '6379')
-    print(r.spop('raw'))
-    print(r.spop('raw'))
-
