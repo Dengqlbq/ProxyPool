@@ -15,7 +15,6 @@ def hello():
     return 'Hello Coder'
 
 
-# 返回单个proxy带有双引号，待解决
 @app.route("/get")
 def get():
     return jsonify(ProxyManager().get())
