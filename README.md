@@ -11,7 +11,8 @@
                           /___ /
 
 ![](https://img.shields.io/badge/Python-3.x-blue.svg)
-测试地址：120.79.155.23:5010/get
+
+测试地址: http://120.79.155.23:5010
 
 ---
 ### How to use
