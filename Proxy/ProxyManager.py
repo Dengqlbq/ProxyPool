@@ -28,7 +28,6 @@ class ProxyManager():
         self.log.info('Fetch start')
         proxies = set()
         for func in self.config.get_proxy_function():
-            print(func)
             fc = getattr(ProxyGetter, func)
             for proxy in fc():
                 self.log.info('Fetch proxy {0}'.format(proxy))
