@@ -40,6 +40,7 @@ class Config(metaclass=Singleton):
     def proxy_pool_port(self):
         return int(self.parser['ProxyPool']['Port'])
 
+    @LazyProperty
     def get_proxy_function(self):
         for func in self.parser['GetProxyFunction']:
             if self.parser['GetProxyFunction'][func] == '1':

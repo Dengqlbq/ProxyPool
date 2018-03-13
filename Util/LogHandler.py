@@ -45,13 +45,4 @@ class LogHandler(logging.Logger):
         self.file_handler = file_handler
         self.addHandler(file_handler)
 
-    def resetName(self, name):
-        """
-        reset name
-        :param name:
-        :return:
-        """
-        self.name = name
-        self.removeHandler(self.file_handler)
-        self.__setFileHandler__()
 
