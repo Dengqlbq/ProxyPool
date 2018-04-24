@@ -13,6 +13,7 @@
 ![](https://img.shields.io/badge/Python-3.x-blue.svg)
 
 测试地址: http://120.79.155.23:5010
+博客地址: https://blog.csdn.net/sinat_34200786/article/details/79451499
 
 ---
 ### How to use
